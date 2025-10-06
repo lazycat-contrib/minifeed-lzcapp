@@ -1,0 +1,49 @@
+name: Minifeed
+package: community.lazycat.app.minifeed
+version: 0.1.0
+min_os_version: 1.3.8
+description: 极简自托管订阅阅读器
+homepage: https://github.com/BenoitMC/minifeed.rails
+author: BenoitMC
+application:
+  subdomain: minifeed
+  background_task: true
+  public_path:
+    - /
+
+  upstreams:
+    - location: /
+      backend: http://minifeed:3000/
+
+services:
+  minifeed:
+    #  benoitmc/minifeed:latest
+    image: registry.lazycat.cloud/czyt/benoitmc/minifeed:caca80b35cf87b02
+    environment:
+      - POSTGRESQL_HOST=minifeed-pg
+      - POSTGRESQL_USER=postgres
+      - SECRET_KEY_BASE=179901
+    depends_on:
+      - minifeed-pg
+
+  minifeed-pg:
+    # postgres:17-alpine
+    image: registry.lazycat.cloud/czyt/library/postgres:bb84b585f0ed5342
+    container_name: minifeed-pg
+    environment:
+      - POSTGRES_HOST_AUTH_METHOD=trust
+    binds:
+      - /lzcapp/var/data:/var/lib/postgresql/data
+    health_check:
+      test:
+        - CMD-SHELL
+        - pg_isready -U postgres
+      start_period: 90s
+
+locales:
+  zh:
+    name: "Minifeed"
+    description: "极简自托管订阅阅读器"
+  en:
+    name: "Minifeed"
+    description: "Minimalist self-hosted feed reader (with its native iOS app.)"
