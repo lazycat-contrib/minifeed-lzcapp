@@ -1,0 +1,14 @@
+package: community.lazycat.app.minifeed
+version: 0.1.0
+name: Minifeed
+description: "极简自托管订阅阅读器"
+min_os_version: "1.3.8"
+homepage: https://github.com/BenoitMC/minifeed.rails
+author: BenoitMC
+locales:
+  zh:
+    description: "极简自托管订阅阅读器"
+    name: "Minifeed"
+  en:
+    description: "Minimalist self-hosted feed reader (with its native iOS app.)"
+    name: "Minifeed"

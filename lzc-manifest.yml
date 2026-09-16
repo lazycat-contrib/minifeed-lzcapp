@@ -1,0 +1,30 @@
+application:
+  subdomain: minifeed
+  background_task: true
+  public_path:
+    - /
+  upstreams:
+    - location: /
+      backend: http://minifeed:3000/
+services:
+  minifeed:
+    # upstream: benoitmc/minifeed:20260703213925
+    image: benoitmc/minifeed:20260703213925
+    environment:
+      - POSTGRESQL_HOST=minifeed-pg
+      - POSTGRESQL_USER=postgres
+      - SECRET_KEY_BASE={{ stable_secret "minifeed_secret_key_base" }}
+    depends_on:
+      - minifeed-pg
+  minifeed-pg:
+    # upstream: library/postgres:17.11-alpine
+    image: library/postgres:17.11-alpine
+    environment:
+      - POSTGRES_HOST_AUTH_METHOD=trust
+    binds:
+      - /lzcapp/var/data:/var/lib/postgresql/data
+    healthcheck:
+      test:
+        - CMD-SHELL
+        - pg_isready -U postgres
+      start_period: 90s

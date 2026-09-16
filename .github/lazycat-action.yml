@@ -1,0 +1,50 @@
+version: 1
+
+project:
+  root: .
+  build_config: lzc-build.yml
+  package_file: package.yml
+  output: .lazycat-build/minifeed.lpk
+  target_arch: amd64
+
+update:
+  strategy: publish
+  allow_downgrade: false
+  version_source:
+    type: image
+    image: minifeed
+build:
+  run_buildscript: false
+images:
+  - id: minifeed
+    target: service
+    service: minifeed
+    source: benoitmc/minifeed
+    channel: date
+    sort: semver
+    tag_regex: '^\d{14}$'
+    version_regex: '^(?P<version>\d{4})(?P<month>\d{2})(?P<day>\d{2})\d{6}$'
+    version_template: '{version}.{month}.{day}'
+    delivery:
+      mode: lazycat
+  - id: minifeed-pg
+    target: service
+    service: minifeed-pg
+    source: library/postgres
+    channel: custom
+    sort: semver
+    tag_regex: '^17\.\d+-alpine$'
+    version_regex: '^(?P<version>17\.\d+)-alpine$'
+    version_template: '{version}.0'
+    delivery:
+      mode: lazycat
+stores:
+  official:
+    enabled: true
+    skip_if_version_exists: true
+    changelog_locales: [zh, en]
+  private:
+    enabled: true
+    skip_if_version_exists: true
+    name: Minifeed
+    summary: "极简自托管订阅阅读器"
