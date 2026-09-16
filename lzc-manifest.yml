@@ -9,7 +9,7 @@ application:
 services:
   minifeed:
     # upstream: benoitmc/minifeed:20260703213925
-    image: benoitmc/minifeed:20260703213925
+    image: registry.lazycat.cloud/czyt/benoitmc/minifeed:6ae18d24b54c1ee0
     environment:
       - POSTGRESQL_HOST=minifeed-pg
       - POSTGRESQL_USER=postgres
@@ -18,7 +18,7 @@ services:
       - minifeed-pg
   minifeed-pg:
     # upstream: library/postgres:17.11-alpine
-    image: library/postgres:17.11-alpine
+    image: registry.lazycat.cloud/czyt/library/postgres:0e37403b15ba58a3
     environment:
       - POSTGRES_HOST_AUTH_METHOD=trust
     binds:
