@@ -1,4 +1,5 @@
 package: community.lazycat.app.minifeed
+license: MIT
 version: 2026.7.3
 name: Minifeed
 description: "极简自托管订阅阅读器"
