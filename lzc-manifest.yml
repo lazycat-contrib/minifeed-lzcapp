@@ -17,8 +17,8 @@ services:
     depends_on:
       - minifeed-pg
   minifeed-pg:
-    # upstream: library/postgres:17.11-alpine
-    image: registry.lazycat.cloud/czyt/library/postgres:0e37403b15ba58a3
+    # upstream: library/postgres:17.12-alpine
+    image: registry.lazycat.cloud/czyt/library/postgres:324ee79228b158c1
     environment:
       - POSTGRES_HOST_AUTH_METHOD=trust
     binds:
