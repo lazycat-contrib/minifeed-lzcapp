@@ -8,8 +8,8 @@ application:
       backend: http://minifeed:3000/
 services:
   minifeed:
-    # upstream: benoitmc/minifeed:20260703213925
-    image: registry.lazycat.cloud/czyt/benoitmc/minifeed:6ae18d24b54c1ee0
+    # upstream: benoitmc/minifeed:20261120151613
+    image: registry.lazycat.cloud/czyt/benoitmc/minifeed:661379ca5ac6ab5f
     environment:
       - POSTGRESQL_HOST=minifeed-pg
       - POSTGRESQL_USER=postgres
